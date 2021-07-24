@@ -84,16 +84,13 @@ int main()
         }
 
 	// alkeellista liikkumista, pitäisi muuttaa hiirellä liikutettavaksi
-        if(Keyboard::isKeyPressed(Keyboard::Key::A)) {
+        if (Keyboard::isKeyPressed(Keyboard::Key::A) || Keyboard::isKeyPressed(Keyboard::Key::Left)) {
             view.move(-0.1f, 0.0f);
-        }
-        if(Keyboard::isKeyPressed(Keyboard::Key::D)) {
+        } else if (Keyboard::isKeyPressed(Keyboard::Key::D) || Keyboard::isKeyPressed(Keyboard::Key::Right)) {
             view.move(0.1f, 0.0f);
-        }
-        if(Keyboard::isKeyPressed(Keyboard::Key::W)) {
+        } else if (Keyboard::isKeyPressed(Keyboard::Key::W) || Keyboard::isKeyPressed(Keyboard::Key::Up)) {
             view.move(0.0f, -0.1f);
-        }
-        if(Keyboard::isKeyPressed(Keyboard::Key::S)) {
+        } else if (Keyboard::isKeyPressed(Keyboard::Key::S) || Keyboard::isKeyPressed(Keyboard::Key::Down)) {
             view.move(0.0f, 0.1f);
         }
 

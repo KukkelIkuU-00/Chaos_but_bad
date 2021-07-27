@@ -66,14 +66,38 @@ int main()
         current = points[i].position;
     }
 
+    struct {
+        bool dragging;
+        Vector2i mousePosition;
+    } mouse_drag;
+    mouse_drag.dragging = false;
+    mouse_drag.mousePosition = sf::Mouse::getPosition();
+
     // Main loop
     while (window.isOpen())
     {
         Event event;
         while (window.pollEvent(event))
         {
-            if (event.type == Event::Closed)
+            if (event.type == Event::Closed) {
                 window.close();
+            } else if (event.type == sf::Event::MouseButtonPressed) {
+                mouse_drag.dragging = true;
+            } else if (event.type == sf::Event::MouseButtonReleased) {
+                mouse_drag.dragging = false;
+            } else if (event.type == sf::Event::MouseMoved) {
+                if (!mouse_drag.dragging) {
+                    continue;
+                }
+                Vector2i newMousePosition = sf::Mouse::getPosition();
+                Vector2f movel(mouse_drag.mousePosition - newMousePosition);
+                
+                if (sqrt(movel.x * movel.x + movel.y * movel.y) < 100) {
+                    view.move(movel);
+                }
+                
+                mouse_drag.mousePosition = newMousePosition;
+            }
         }
 
 	// zoomia
